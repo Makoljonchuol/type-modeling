@@ -43,6 +43,9 @@ public class PythonType extends PythonObject {
     protected List<PythonObject> buildMRO() {
         List<PythonObject>result = new ArrayList<>();
         result.add(this);
+        if(base != null){
+            result.addAll(base.getMRO());
+        }
         return result;
         // throw new UnsupportedOperationException("not implemented yet");
     }
