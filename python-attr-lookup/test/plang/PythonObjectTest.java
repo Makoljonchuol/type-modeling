@@ -152,8 +152,7 @@ class PythonObjectTest {
 
     @Test
     void overrideInheritedAttrsWithNull() throws Exception {
-        // Equivalent Python:
-        //
+        // python equivalent
         //   Foo.socks = "rainbow"
         //   foo.socks = None
         //   Bar.socks = None
