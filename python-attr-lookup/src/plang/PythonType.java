@@ -47,7 +47,6 @@ public class PythonType extends PythonObject {
             result.addAll(base.getMRO());
         }
         return result;
-        // throw new UnsupportedOperationException("not implemented yet");
     }
 
     /**
@@ -56,7 +55,6 @@ public class PythonType extends PythonObject {
      */
     public PythonObject instantiate() {
        return new PythonObject(this);
-//        throw new UnsupportedOperationException("not implemented yet");
     }
 
     @Override
