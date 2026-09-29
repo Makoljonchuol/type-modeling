@@ -51,7 +51,10 @@ public class PythonObject {
      * result (i.e. it remembers the list buildMRO() returned and keeps returning it).
      */
     protected List<PythonObject> buildMRO() {
-        throw new UnsupportedOperationException("not implemented yet");
+        List<PythonObject>resultt = new ArrayList<>();
+        resultt.add(this);
+        resultt.addAll(type.getMRO());
+        return resultt;
     }
 
     /**
