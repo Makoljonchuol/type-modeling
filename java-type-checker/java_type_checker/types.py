@@ -121,7 +121,7 @@ class JavaObjectType(JavaType):
         self.constructor = constructor
         self.methods = {}
 
-    def is_substype_of(self, other):
+    def is_subtype_of(self, other):
         if other is self:
             return True
         for supertype in self.direct_supertypes:
