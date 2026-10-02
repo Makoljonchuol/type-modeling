@@ -79,7 +79,15 @@ class JavaAssignment(JavaExpression):
 
     def static_type(self):
         return self.lhs.static_type()
-    
+
+    def check_types(self):
+        lhs_type = self.lhs.static_type()
+        rhs_type = self.rhs.static_type()
+        if not rhs_type.is_subtype_of(lhs_type):
+            raise JavaTypeMismatchError(
+                "Cannot assign {0} to variable {1} of type {2}".format(
+                    rhs_type.name, self.lhs.name, lhs_type.name))
+
 class JavaMethodCall(JavaExpression):
     """A Java method invocation.
 
