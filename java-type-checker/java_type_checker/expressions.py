@@ -71,7 +71,9 @@ class JavaAssignment(JavaExpression):
         self.lhs = lhs
         self.rhs = rhs
 
-
+    def static_type(self):
+        return self.lhs.static_type()
+    
 class JavaMethodCall(JavaExpression):
     """A Java method invocation.
 
@@ -93,6 +95,10 @@ class JavaMethodCall(JavaExpression):
         self.method_name = method_name
         self.args = args
 
+    def static_type(self):
+        receiver_type =self.receiver.static_type()
+        method =receiver_type.method_named(self.method_name)
+        return method.return_type 
 
 class JavaConstructorCall(JavaExpression):
     """
