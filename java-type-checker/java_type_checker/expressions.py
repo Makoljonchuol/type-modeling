@@ -114,6 +114,17 @@ class JavaMethodCall(JavaExpression):
         method =receiver_type.method_named(self.method_name)
         return method.return_type 
 
+    def check_types(self):
+        receiver_type = self.receiver.static_type()
+        method = receiver_type.method_named(self.method_name)
+        if len(method.parameter_type) != len(self.arg):
+            raise JavaTypeMismatchError()
+        "Wrong number of arguments for {0}. {1}(): expected {2}, got {3}".format(
+            receiver_type.name,
+            self.method_name,
+            len(method.parameter_type),
+            len(self.args))
+
 class JavaConstructorCall(JavaExpression):
     """
     A Java object instantiation
