@@ -117,13 +117,22 @@ class JavaMethodCall(JavaExpression):
     def check_types(self):
         receiver_type = self.receiver.static_type()
         method = receiver_type.method_named(self.method_name)
-        if len(method.parameter_type) != len(self.arg):
-            raise JavaTypeMismatchError()
-        "Wrong number of arguments for {0}. {1}(): expected {2}, got {3}".format(
+        if len(method.parameter_types) != len(self.args):
+            raise JavaArgumentCountError(
+        "Wrong number of arguments for {0}.{1}(): expected {2}, got {3}".format(
             receiver_type.name,
             self.method_name,
-            len(method.parameter_type),
-            len(self.args))
+            len(method.parameter_types),
+            len(self.args)))
+
+        for param_type, arg in zip(method.parameter_types, self.args):
+            if not arg.static_type().is_subtype_of(param_type):
+                raise JavaTypeMismatchError(
+                    "{0}.{1}() expects arguments of type {2}, but got {3}".format(
+                        receiver_type.name,
+                        self.method_name,
+                        _names(method.parameter_types),
+                        _names([argument.static_type() for argument in self.args])))
 
 class JavaConstructorCall(JavaExpression):
     """
